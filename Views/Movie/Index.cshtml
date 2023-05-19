@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MovieDbSystem.Models.Movie>
+
+@{
+    ViewData["Title"] = "List of Movies";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card-mb-3" style="max-width:540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white" style="background: #0E79B2 ">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.Name
+                                    <a asp-action="Edit" asp-route-id="@item.ID" class="text-white float-right"><i class="fa-solid fa-pen-to-square" style="padding:5px"></i></a>
+                                    <a asp-action="Detail" asp-route-id="@item.ID" class="text-white float-right"><i class="fa-solid fa-circle-info" style="padding:5px"></i></a>
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.ImageURL" style="width:220px; height:250px" alt="@item.Name" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text text-white">@item.Description</p>
+                            <p class="card-text text-white"><b>Category: </b>@item.MovieCategory</p>
+                            <p class="card-text text-white"><b>Date: </b>@item.StartDate.ToString("yyyy")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div style="position:fixed; right:25px; bottom:25px;" class="text-white">
+    <a asp-controller="Movie" asp-action="Create" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i>Add new</a>
+</div>

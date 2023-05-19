@@ -1,0 +1,65 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="card-mb-12">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <h5 class="card-title">
+                                @Model.Name
+                            </h5>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="@Model.ImageURL" style="width:220px; height:250px" alt="@Model.Name" />
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text">@Model.Description</p>
+                        <p class="card-text"><b>Category: </b>@Model.MovieCategory</p>
+                        <p class="card-text"><b>Date: </b>@Model.StartDate.ToString("yyyy")</p>
+                        <p class="card-text">
+                            <b>Director: </b>
+                            <a asp-controller="Director" asp-action="Detail" asp-route-id="@Model.DirectorID">@Model.Director.FullName</a>
+                        </p>
+                        <hr />
+                        <p class="card-text">
+                            <b>Cast:</b>
+                            <div class="row">
+                                @foreach (var item in Model.Actor_Movies)
+                                {
+                                    <div class="column text-center">
+                                        <img class="border-info" style="width:220px; height:200px" src="@item.Actor.ProfilePictureURL" />
+                                        <br />
+                                        <a asp-controller="Actor" asp-action="Detail" asp-route-id="@item.ActorID">@item.Actor.FullName</a>
+                                    </div>
+                                }
+                            </div>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer">
+                        <p class="card-text">
+                            <a class="btn btn-info float-right" asp-action="Index">
+                                Back to List
+                            </a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.ID">
+                                Remove
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
